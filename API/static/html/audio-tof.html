@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Page Title</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+</head>
+<body>
+<div style="display: flex; flex-direction: column; gap: 20px;">
+  <div style="align-self: center; border-bottom: 1px solid brown;">
+    <h1 >Proyecto QuizWeb!</h1>
+  </div>
+  <div>
+    <div style="font-size: 20px; color: brown;">
+      <span>Pregunta # </span>
+      <span style="font-weight: bold;">%s</span>
+    </div>
+  </div>
+  <div>
+    <div style="font-size: 20px; color: red;">
+      <span>Segundos para responder: </span>
+      <span style="font-weight: bold;">%s</span>
+    </div>
+  </div>
+  <div style="display: flex; flex-direction: column; border: 1px solid brown; width: auto;">
+    <h3>%s</h3>
+    <div style="margin-bottom: 10px;">
+      <audio controls>
+        <source src="%s" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+    <form id="pregunta" style="display: flex; flex-direction: column;">
+      <label for="true"><input type="radio" name="option" id="true">True</label>
+      <label for="false"><input type="radio" name="option" id="false">False</label>
+      <button type="button" style="width: 100px; margin: 10px">Submit</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

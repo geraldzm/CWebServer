@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Page Title</title>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+    </head>
+    <body>
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+            <div style="align-self: center; border-bottom: 1px solid brown;">
+                <h1 >Proyecto QuizWeb!</h1>
+            </div>
+            <div>
+                <div style="font-size: 25px; color: brown;">
+                    <span style="font-weight: bold;">Join A quiz: </span>
+                </div>
+
+                <form action="join" method="get">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username">
+                    <label for="quizcode">quiz code:</label>
+                    <input type="number" id="quizcode" name="quizcode">
+
+                    <button type="submit" style="width: 100px; margin: 10px">Login</button>
+                </form>
+
+                <div style="font-size: 15px; color: brown;">
+                    <span style="font-weight: bold;">Or login as admin: </span>
+                </div>
+                <form action="login" method="get">
+                    <label for="adminuser">Admin User:</label>
+                    <input type="text" id="adminuser" name="adminuser">
+                    <label for="password">password:</label>
+                    <input type="number" id="password" name="password">
+
+                    <button type="submit" style="width: 100px; margin: 10px">Login</button>
+                </form>
+            </div>
+            <div style="border: 1px solid gray; display: flex; flex-direction: column; margin-bottom: 10px;">
+                <span style="color: purple;">Team:</span>
+                <span>Gerald Zamora Morales, 2020053672</span>
+                <span>Daniel Bejarano Alfaro, 2020425953</span>
+            </div>
+            <div style="display: flex; flex-direction: column; border: 1px solid gray; margin-bottom: 10px;">
+                <span>Instituto Tecnológico de Costa Rica, Campus Central Cartago, Escuela de Computacións</span>
+                <span>IC-6600 Principios de Sistemas Operativos</span>
+                <span>Proyecto #1 - QuizWeb</span>
+                <span>09/11/2022</span>
+                <span>Profesor: Esteban Arias Méndez</span>
+                <span>Segundo Semestre 2022</span>
+            </div>
+        </div>
+        <script src="/static?file=messageRender.js"></script>
+    </body>
+</html>

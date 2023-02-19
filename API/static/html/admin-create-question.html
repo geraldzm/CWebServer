@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+  <h1>Crear pregunta</h1>
+  <form action="/admin/question/new" method="get">
+    <label for="questionText">Pregunta:</label>
+    <input type="text" name="questionText" id="questionText" required>
+    <br/>
+    <br/>
+    <label for="points">Puntos de la pregunta</label>
+    <input type="number" name="points" id="points" required>
+    <br/>
+    <br/>
+    <label for="time">Duración de la pregunta en segundos</label>
+    <input type="number" name="time" id="time" required>
+    <br/>
+    <br/>
+    <h2>Respuestas</h2>
+    <div id="answers"></div>
+    <br/>
+    <br/>
+    <button id="addAnswerButton" type="button" onclick="addAnswer()">Agregar respuesta</button>
+    <button id="removeAnswerButton" type="button" onclick="removeAnswer()">Eliminar última respuesta</button>
+    <br/>
+    <br/>
+    <br/>
+    <button type="submit">Crear pregunta</button>
+  </form>
+
+  <script>
+    // implement addAnswer function
+    const addAnswer = () => {
+      // add id to answer
+      const answers = document.getElementById("answers");
+      const answer = document.createElement("div");
+      const id = answers.childElementCount;
+
+      if(id >= 5) {
+        alert("No se pueden agregar más de 5 respuestas");
+        return;
+      }
+
+      answer.innerHTML = `
+        <label for="answerText${ id }">Texto de la respuesta</label>
+        <input type="text" name="answerText${ id }" id="answerText" required>
+        <br/>
+        <label for="answerCorrect${ id }">Es correcta?</label>
+        <input type="checkbox" name="answerCorrect${ id }" id="answerCorrect">
+        <br/>
+        <br/>
+      `;
+
+      answers.appendChild(answer);
+    };
+
+    // implement removeAnswer function
+    const removeAnswer = () => {
+      const answers = document.getElementById("answers");
+      if(answers.children.length > 0) {
+        answers.removeChild(answers.lastChild);
+      }
+    };
+  </script>
+
+</body>
+</html>

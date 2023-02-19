@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+  <h1>Crear un nuevo quiz usando el banco de preguntas</h1>
+
+  <form action="/admin/quiz/create" method="get">
+    <label for="quizName">Nombre del quiz</label>
+    <input type="text" name="quizName" id="quizName" required>
+    <br/>
+    <br/>
+    <label for="quizQuestions">Preguntas del quiz</label>
+    <br/>
+    <div id="quizQuestions"></div>
+    <br/>
+    <button type="submit">Crear quiz</button>
+  </form>
+
+  <script>
+    // get select to insert options
+    const divQuestions = document.getElementById("quizQuestions");
+
+    fetch("/admin/questions")
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error('Something went wrong');
+        }
+      })
+      .then(json => {
+        const questions = json.questions;
+        questions.forEach((question, i) => {
+          const questionDiv = document.createElement("div");
+          questionDiv.innerHTML = `<input type="checkbox" name="${'question'+i}" value="${question.id}">${question.question}`;
+          divQuestions.appendChild(questionDiv);
+        });
+      });
+
+  </script>
+
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <button onclick="window.location.href='/admin'">Volver</button>
+  <button onclick="window.location.href='/admin/question'">Agregar pregunta al banco</button>
+
+  <script src="/static?file=messageRender.js"></script>
+</body>
+</html>

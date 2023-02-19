@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+
+        .round-time-bar {
+            margin: 1rem;
+            overflow: hidden;
+        }
+        .round-time-bar div {
+            height: 5px;
+            animation: roundtime calc(var(--duration) * 1s) steps(var(--duration))
+            forwards;
+            transform-origin: left center;
+            background: linear-gradient(to bottom, red, #900);
+        }
+
+        .round-time-bar[data-style="smooth"] div {
+            animation: roundtime calc(var(--duration) * 1s) linear forwards;
+        }
+
+        .round-time-bar[data-style="fixed"] div {
+            width: calc(var(--duration) * 5%);
+        }
+
+        .round-time-bar[data-color="blue"] div {
+            background: linear-gradient(to bottom, #64b5f6, #1565c0);
+        }
+
+        @keyframes roundtime {
+            to {
+                /* More performant than `width` */
+                transform: scaleX(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 id="title"></h1>
+    <h3 id="score" hidden="true">0</h3>
+    <div id="timerBar" class="round-time-bar" data-style="smooth" hidden="true">
+        <div></div>
+    </div>
+    <div id="question">
+        <h2 id="questionTxt"></h2>
+        <h3 id="questionType"></h3>
+        <div id="answers"></div>
+        <button id="submitAnswer" hidden="true" onclick="onSubmittedAnswer()">Envair</button>
+    </div>
+    <button id="goHome" hidden="true" onclick="goHomeButtonAction()">Ir al inicio</button>
+
+    <div id="ranking" hidden="true"></div>
+    <script src="/static?file=socketWebManager.js"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistics of quiz</title>
+</head>
+<body>
+
+  <div>
+      <div id="quizContainer"></div>
+      <h2>Preguntas</h2>
+      <ul id="questionsList"></ul>
+  </div>
+
+  <button id="startBtn" hidden="true">Iniciar</button>
+
+  <script>
+
+      const actionStart = () => {
+          // get quiz code
+          fetch("/admin/quiz/init")
+              .then(response => {
+                  if (response.ok) {
+                      startBtn.hidden = true;
+                      updateInfo();
+                  } else {
+                      throw new Error('Something went wrong');
+                  }
+              });
+      };
+
+      function updateInfo() {
+          fetch(`/admin/statistics/info`)
+              .then(response => {
+                  if (response.ok) {
+                      return response.json();
+                  } else {
+                      throw new Error('Something went wrong');
+                  }
+              })
+              .then(json => {
+                  console.log(json);
+                  const quiz = json.quiz;
+                  // insert title, status
+                  const quizContainer = document.getElementById('quizContainer');
+
+                    const title = document.createElement('h1');
+                    title.innerHTML = "Nombre del quiz: " + quiz.name;
+                    quizContainer.appendChild(title);
+
+                    const status = document.createElement('h2');
+                    status.innerHTML = "Estado del quiz: " + quiz.status;
+                    quizContainer.appendChild(status);
+
+                    // insert questions
+                    const questionsList = document.getElementById('questionsList');
+                    const questions = json.questions;
+                    let totalTime = 0;
+                    questions.forEach((question, i) => {
+                        // append question to questionsList
+                        const questionItem = document.createElement("li");
+                        questionItem.innerHTML = `${question.question} (${question.points} pts), (${question.time} segs)`;
+                        totalTime += question.time;
+                        questionsList.appendChild(questionItem);
+                    });
+
+                    const totalTimeItem = document.createElement("h2");
+                    totalTimeItem.innerHTML = `Tiempo total: ${totalTime} segs`;
+                  quizContainer.appendChild(totalTimeItem);
+
+                  if(quiz.status === "WAITING") {
+                      // get start button
+                      const startBtn = document.getElementById('startBtn');
+                      startBtn.addEventListener('click', actionStart);
+                      startBtn.hidden = false;
+                  }
+              });
+      }
+
+      updateInfo();
+
+  </script>
+
+  <script src="/static?file=messageRender.js"></script>
+
+</body>
+</html>

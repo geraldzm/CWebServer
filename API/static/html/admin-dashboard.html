@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+</head>
+<body>
+
+    <h1>Admin Quices</h1>
+
+
+    <ul id="quizzesList"></ul>
+    <div id="quizMessage"></div>
+
+    <script>
+        fetch('/quizzes')
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Something went wrong');
+                }
+            })
+            .then(json => {
+                const quizzesList = document.getElementById('quizzesList');
+                const quizzes = json.quizzes;
+                quizzes.forEach(quiz => {
+                    const quizItem = document.createElement('li');
+                    // add to quizItem a title, a status and an id, and a link to '/quiz?quizcode=' + quiz.id
+                    quizItem.innerHTML = `<a href="admin/statistics?quizcode=${quiz.id}">${quiz.name}</a>\t\tstatus:${quiz.status}`;
+                    quizzesList.appendChild(quizItem);
+                });
+                if(quizzes.length === 0) document.getElementById('quizMessage').innerHTML = 'No hay quices';
+            });
+    </script>
+    <br/>
+    <button onclick="window.location.href='/admin/create-quiz'">Crear Quiz</button>
+    <script src="/static?file=messageRender.js"></script>
+</body>
+</html>
